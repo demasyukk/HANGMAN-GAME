@@ -5,18 +5,21 @@ from tkinter import messagebox
 score = 0
 run = True
 
+
 # main loop
 while run:
     root = Tk()
     root.geometry('905x700')
-    root.title('HANG MAN')
-    root.config(bg = '#E7FFFF')
+    root.title('H_NGM_N')
+    root.config(bg = 'black')
     count = 0
     win_count = 0
+    location = "C:/Users/USER/Documents/Kuliah/Semester 5/Pemrograman Lanjut/"
+
 
     # choosing word
     index = random.randint(0,853)
-    file = open('words.txt','r')
+    file = open('C:/Users/USER/Documents/Kuliah/Semester 5/Pemrograman Lanjut/words.txt','r')
     l = file.readlines()
     selected_word = l[index].strip('\n')
     
@@ -24,21 +27,21 @@ while run:
     x = 250
     for i in range(0,len(selected_word)):
         x += 60
-        exec('d{}=Label(root,text="_",bg="#E7FFFF",font=("arial",40))'.format(i))
-        exec('d{}.place(x={},y={})'.format(i,x,450))
+        exec('d{}=Label(root,text="_",bg="white",font=("arial",40))'.format(i))
+        exec('d{}.place(x={},y={})'.format(i,x,400))
         
     #letters icon
     al = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
     for let in al:
-        exec('{}=PhotoImage(file="{}.png")'.format(let,let))
+        exec('{}=PhotoImage(file="{}{}.png")'.format(let,location,let))
         
     # hangman images
     h123 = ['h1','h2','h3','h4','h5','h6','h7']
     for hangman in h123:
-        exec('{}=PhotoImage(file="{}.png")'.format(hangman,hangman))
+        exec('{}=PhotoImage(file="{}{}.png")'.format(hangman,location,hangman))
         
     #letters placement
-    button = [['b1','a',0,595],['b2','b',70,595],['b3','c',140,595],['b4','d',210,595],['b5','e',280,595],['b6','f',350,595],['b7','g',420,595],['b8','h',490,595],['b9','i',560,595],['b10','j',630,595],['b11','k',700,595],['b12','l',770,595],['b13','m',840,595],['b14','n',0,645],['b15','o',70,645],['b16','p',140,645],['b17','q',210,645],['b18','r',280,645],['b19','s',350,645],['b20','t',420,645],['b21','u',490,645],['b22','v',560,645],['b23','w',630,645],['b24','x',700,645],['b25','y',770,645],['b26','z',840,645]]
+    button = [['b1','a',0,500],['b2','b',70,500],['b3','c',140,500],['b4','d',210,500],['b5','e',280,500],['b6','f',350,500],['b7','g',420,500],['b8','h',490,500],['b9','i',570 ,500],['b10','j',630,500],['b11','k',700,500],['b12','l',770,500],['b13','m',840,500],['b14','n',0,600],['b15','o',70,600],['b16','p',140,600],['b17','q',210,600],['b18','r',280,600],['b19','s',350,600],['b20','t',420,600],['b21','u',490,600],['b22','v',560,600],['b23','w',630,600],['b24','x',700,600],['b25','y',770,600],['b26','z',840,600]]
 
     for q1 in button:
         exec('{}=Button(root,bd=0,command=lambda:check("{}","{}"),bg="#E7FFFF",activebackground="#E7FFFF",font=10,image={})'.format(q1[0],q1[1],q1[0],q1[1]))
@@ -50,19 +53,19 @@ while run:
         exec('{}=Label(root,bg="#E7FFFF",image={})'.format(p1[0],p1[1]))
 
     # placement of first hangman image
-    c1.place(x = 300,y =- 50)
+    c1.place(x = 200,y =- 50)
     
     # exit buton
     def close():
         global run
-        answer = messagebox.askyesno('ALERT','YOU WANT TO EXIT THE GAME?')
+        answer = messagebox.askyesno('Perhatian','Apakah Anda ingin keluar permainan?')
         if answer == True:
             run = False
             root.destroy()
             
-    e1 = PhotoImage(file = 'exit.png')
-    ex = Button(root,bd = 0,command = close,bg="#E7FFFF",activebackground = "#E7FFFF",font = 10,image = e1)
-    ex.place(x=770,y=10)
+    e1 = PhotoImage(file = 'C:/Users/USER/Documents/Kuliah/Semester 5/Pemrograman Lanjut/exit.png')
+    ex = Button(root,bd = 0,command = close,bg="white",activebackground = "black",font = 10,image = e1)
+    ex.place(x=850,y=10)
     s2 = 'SCORE:'+str(score)
     s1 = Label(root,text = s2,bg = "#E7FFFF",font = ("arial",25))
     s1.place(x = 10,y = 10)
@@ -78,7 +81,7 @@ while run:
                     exec('d{}.config(text="{}")'.format(i,letter.upper()))
             if win_count == len(selected_word):
                 score += 1
-                answer = messagebox.askyesno('GAME OVER','YOU WON!\nWANT TO PLAY AGAIN?')
+                answer = messagebox.askyesno('GAME OVER','Anda Menang!\nBermain lagi?')
                 if answer == True:
                     run = True
                     root.destroy()   
@@ -90,7 +93,7 @@ while run:
             exec('c{}.destroy()'.format(count))
             exec('c{}.place(x={},y={})'.format(count+1,300,-50))
             if count == 6:
-                answer = messagebox.askyesno('GAME OVER','YOU LOST!\nWANT TO PLAY AGAIN?')
+                answer = messagebox.askyesno('GAME OVER','Anda Kalah!\nBermain lagi?')
                 if answer == True:
                     run = True
                     score = 0
@@ -99,4 +102,3 @@ while run:
                     run = False
                     root.destroy()         
     root.mainloop()
-
